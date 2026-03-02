@@ -1,0 +1,10 @@
+{
+  "name": "focus-mode",
+  "version": "1.0.0",
+  "description": "One command. Kill Slack, set status, block distractions, start timer. Deep work activated.",
+  "type": "module",
+  "bin": { "focus": "./index.js" },
+  "keywords": ["productivity", "focus", "pomodoro", "cli", "developer-tools"],
+  "license": "MIT",
+  "engines": { "node": ">=18" }
+}
