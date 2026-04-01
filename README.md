@@ -1,3 +1,5 @@
+![Banner](banner.svg)
+
 # focus-mode 🎯
 
 One command. Deep work activated.
