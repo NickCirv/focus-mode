@@ -1,93 +1,49 @@
-![Banner](banner.svg)
+<div align="center">
 
-# focus-mode 🎯
+# focus-mode
 
-One command. Deep work activated.
+**Kill distractions, set your GitHub status, block sites, and start a Pomodoro timer — one command.**
 
-```bash
-focus start --duration 90 --task "fix the auth bug"
-```
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue?labelColor=0B0A09)](LICENSE)
+[![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen?labelColor=0B0A09)](package.json)
+[![Node: >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen?labelColor=0B0A09)](package.json)
 
-*Slack: killed*  
-*GitHub status: set*  
-*Reddit: blocked*  
-*Timer: started*
-
-*Go.*
-
----
+</div>
 
 ## Install
 
 ```bash
-npm install -g focus-mode
+npx github:NickCirv/focus-mode
 ```
 
-Or run directly:
+Or install globally:
 
 ```bash
-git clone https://github.com/NickCirv/focus-mode
-cd focus-mode
-npm link
+npm install -g github:NickCirv/focus-mode
 ```
 
 ## Usage
 
 ```bash
-focus start                                    # 90 min session
-focus start --duration 60                     # 60 min session
-focus start --duration 90 --task "auth bug"   # with task name
-focus end                                      # end early, restore everything
-focus status                                   # check current session
-focus config                                   # interactive setup (GitHub token, etc.)
+focus start                                     # 90 min session
+focus start --duration 60 --task "auth bug"    # named session, custom length
+focus end                                       # end early, restore everything
+focus status                                    # check active session + all-time stats
+focus config                                    # interactive setup (GitHub token, blocked sites, apps)
 ```
 
-## What It Does
+| Flag | Description |
+|------|-------------|
+| `--duration <min>` | Session length in minutes (default: 90) |
+| `--task <string>` | Label what you're working on |
 
-When you run `focus start`:
+## What it does
 
-1. **Kills distracting apps** — Slack, Discord, Messages (macOS/Linux)
-2. **Sets GitHub status** — 🎯 "In focus mode — back in 90min" with limited availability
-3. **Blocks distracting sites** — twitter.com, reddit.com, youtube.com via `/etc/hosts`
-4. **Starts Pomodoro timer** — live countdown, break reminders every 25min, visual progress
+Running `focus start` kills Slack, Discord, and Messages; sets your GitHub status to "In focus mode — back in Nmin" with limited availability; blocks Twitter, Reddit, YouTube, and HN via `/etc/hosts`; then runs a live Pomodoro countdown (25 min work / 5 min break cycles). When the session ends — or you hit Ctrl+C — it clears your GitHub status, restores `/etc/hosts`, and shows how long you actually focused.
 
-When the session ends:
-1. GitHub status is cleared
-2. `/etc/hosts` is restored
-3. Session summary with time focused
-4. Honest assessment of how you did
+Site blocking writes to `/etc/hosts` and requires sudo on most systems. Everything else works without elevated permissions.
 
-## Config
+Config is stored in `~/.focus-mode.json`. Run `focus config` to set your GitHub personal access token (`user` scope), default duration, which apps to kill, and which sites to block.
 
-Run `focus config` to set:
-
-- **GitHub token** — create at [github.com/settings/tokens](https://github.com/settings/tokens) with `user` scope
-- **Default duration** — in minutes (default: 90)
-- **Apps to kill** — comma-separated app names
-- **Sites to block** — comma-separated domains
-
-Config stored in `~/.focus-mode.json`.
-
-## Site Blocking
-
-Site blocking requires write access to `/etc/hosts`. On most systems this needs sudo:
-
-```bash
-sudo focus start --duration 90 --task "deep work"
-```
-
-If you run without sudo, everything else still works — the site blocking step is skipped gracefully.
-
-## Platform Support
-
-| Feature | macOS | Linux | Windows |
-|---------|-------|-------|---------|
-| Kill apps | ✓ | ✓ | ✓ |
-| GitHub status | ✓ | ✓ | ✓ |
-| Block sites | ✓ | ✓ | — |
-| Pomodoro timer | ✓ | ✓ | ✓ |
-
-## Requirements
-
-- Node.js 18+
-- No dependencies — pure Node.js stdlib
+---
+<sub>Zero dependencies · Node >=18 · MIT · by <a href="https://github.com/NickCirv">NickCirv</a></sub>
