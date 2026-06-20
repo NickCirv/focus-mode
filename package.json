@@ -6,5 +6,6 @@
   "bin": { "focus": "./index.js" },
   "keywords": ["productivity", "focus", "pomodoro", "cli", "developer-tools"],
   "license": "MIT",
-  "engines": { "node": ">=18" }
+  "scripts": { "test": "node --test" },
+  "engines": { "node": ">=20" }
 }
