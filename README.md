@@ -1,49 +1,66 @@
-<div align="center">
+![focus-mode — Nicholas Ashkar repository collection](assets/nicholas-ashkar/banner.png)
 
 # focus-mode
 
-**Kill distractions, set your GitHub status, block sites, and start a Pomodoro timer — one command.**
+Coordinate a timed focus session with optional desktop and GitHub status actions.
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue?labelColor=0B0A09)](LICENSE)
-[![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen?labelColor=0B0A09)](package.json)
-[![Node: >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen?labelColor=0B0A09)](package.json)
 
-</div>
-
-## Install
-
-```bash
-npx github:NickCirv/focus-mode
-```
-
-Or install globally:
-
-```bash
-npm install -g github:NickCirv/focus-mode
-```
-
-## Usage
-
-```bash
-focus start                                     # 90 min session
-focus start --duration 60 --task "auth bug"    # named session, custom length
-focus end                                       # end early, restore everything
-focus status                                    # check active session + all-time stats
-focus config                                    # interactive setup (GitHub token, blocked sites, apps)
-```
-
-| Flag | Description |
-|------|-------------|
-| `--duration <min>` | Session length in minutes (default: 90) |
-| `--task <string>` | Label what you're working on |
+<a id="usage"></a>
 
 ## What it does
 
-Running `focus start` kills Slack, Discord, and Messages; sets your GitHub status to "In focus mode — back in Nmin" with limited availability; blocks Twitter, Reddit, YouTube, and HN via `/etc/hosts`; then runs a live Pomodoro countdown (25 min work / 5 min break cycles). When the session ends — or you hit Ctrl+C — it clears your GitHub status, restores `/etc/hosts`, and shows how long you actually focused.
+Supports start, end, status and configuration. Depending on configuration and platform it can close distracting applications, alter hosts-file blocking, set a GitHub status and store session history. See the pinned [implementation](https://github.com/NickCirv/focus-mode/blob/7d6ae1cab5302639122e85e71d719b38b7b3031d/index.js).
 
-Site blocking writes to `/etc/hosts` and requires sudo on most systems. Everything else works without elevated permissions.
 
-Config is stored in `~/.focus-mode.json`. Run `focus config` to set your GitHub personal access token (`user` scope), default duration, which apps to kill, and which sites to block.
+<a id="install"></a>
 
----
-<sub>Zero dependencies · Node >=18 · MIT · by <a href="https://github.com/NickCirv">NickCirv</a></sub>
+## Quickstart
+
+Node requirement from the inspected manifest: **`>=20`**. Review configuration before start. Hosts-file changes may require elevated privileges; status is the lower-impact first inspection.
+
+The following example is **source-inspected, not executed**. It uses a pinned checkout; npm package publication is not assumed. Replace project paths or provide the stated input fixtures before running it.
+
+```bash
+git clone https://github.com/NickCirv/focus-mode.git
+cd focus-mode
+git checkout 7d6ae1cab5302639122e85e71d719b38b7b3031d
+npm install --ignore-scripts
+node index.js status
+```
+
+Dependencies are installed with lifecycle scripts disabled in this recipe. Read the package scripts before enabling any lifecycle step required by your environment.
+
+## Usage and reference
+
+`focus` are the executable names declared by the package. [Command reference](docs/REFERENCE.md) covers source-backed options and entry points.
+
+| Control | Behavior in the inspected implementation |
+| --- | --- |
+| `status` | Inspect session state |
+| `config` | Review or change local configuration |
+| `start --duration MINUTES` | Start a session with configured side effects |
+| `end` | End the active session and attempt cleanup |
+
+## Limits and operational notes
+
+Starting a session is not just a timer: default app/site lists can affect running applications and network resolution. The GitHub token is stored in local configuration; protect that file. Platform support and cleanup after interruption have not been tested.
+
+## Development
+
+No runtime checks were executed for this documentation review. The committed smoke test checks entrypoint JavaScript syntax; it does not exercise the command behavior.
+
+| Script | Declared command |
+| --- | --- |
+| `test` | `node --test` |
+
+Work from the pinned source, keep changes focused, and reproduce the affected behavior with a small fixture before proposing a change. Existing contribution and security policies remain authoritative where present.
+
+## Research and status
+
+[Research record](docs/RESEARCH.md) identifies the inspected revision, source evidence, documentation disposition and verification gaps. Static inspection supports the descriptions here; runtime behavior, dependency installation and current hosted services remain unverified.
+
+## License and author
+
+[License](https://github.com/NickCirv/focus-mode/blob/7d6ae1cab5302639122e85e71d719b38b7b3031d/LICENSE)
+
+[Nicholas Ashkar](https://nicholashkar.com) · Applied AI, systems and consulting.
